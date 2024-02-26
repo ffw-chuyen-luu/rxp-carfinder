@@ -1,3 +1,5 @@
+"use server";
+
 import prisma from "@/lib/prisma";
 import { Car, NUMBER_OF_CARS_TO_FETCH } from "@/lib/types";
 
