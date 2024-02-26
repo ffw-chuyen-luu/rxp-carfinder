@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import SearchSuggestions from "../ui/SearchSuggestions";
+
 const Header = () => {
   return (
     <header className="bg-white w-full">
@@ -17,7 +19,7 @@ const Header = () => {
               />
             </Link>
             <div className="mt-6 md:mt-0">
-              <p>Search box</p>
+              <SearchSuggestions />
             </div>
           </div>
         </div>
