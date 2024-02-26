@@ -43,3 +43,29 @@ export const getAllCars = async (
     items: data[1],
   };
 };
+
+export const searchCars = async (terms: string) => {
+  const keywords = terms.trim().toLocaleLowerCase();
+  return await prisma.car.findMany({
+    include: {
+      brand: true,
+      category: true,
+    },
+    where: {
+      title: {
+        search: keywords,
+      },
+      description: {
+        search: keywords,
+      },
+    },
+    take: 10,
+    orderBy: {
+      _relevance: {
+        fields: ["title", "description"],
+        search: keywords,
+        sort: "desc",
+      },
+    },
+  });
+};
