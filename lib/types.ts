@@ -31,3 +31,5 @@ export type Car = {
   category: Category;
   categoryId: string;
 };
+
+export const NUMBER_OF_CARS_TO_FETCH = 8;
