@@ -302,21 +302,6 @@ const carData: Prisma.CarCreateInput[] = [
     brand: { connect: { title: "BMW" } },
   },
   {
-    slug: "nissan-rogue",
-    title: "Nissan Rogue",
-    image: "cars/Car-17.png",
-    description:
-      "The Nissan Rogue is a compact SUV offering a comfortable ride, spacious cabin, and strong safety features.",
-    officialWebsite: "https://www.nissanusa.com/rogue",
-    oil: "GASOLINE",
-    transmission: "AUTOMATIC",
-    capacity: 5,
-    fuelTank: 65,
-    pricePerDay: 75,
-    category: { connect: { name: "SUV" } },
-    brand: { connect: { title: "Toyota" } },
-  },
-  {
     slug: "chevrolet-bolt-ev",
     title: "Chevrolet Bolt EV",
     description:

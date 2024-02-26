@@ -24,7 +24,7 @@ model Category {
 model Car {
   id              String       @id @default(cuid())
   createdAt       DateTime     @default(now())
-  slug            String
+  slug            String       @unique
   title           String
   image           String
   description     String
