@@ -23,9 +23,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={lato.className}>
-        <Header />
-        <main>{children}</main>
-        <Footer />
+        <div className="flex min-h-screen flex-col justify-between">
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   );
