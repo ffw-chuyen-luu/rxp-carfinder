@@ -69,3 +69,15 @@ export const searchCars = async (terms: string) => {
     },
   });
 };
+
+export const getCarBySlug = async (slug: string) => {
+  return await prisma.car.findUnique({
+    where: {
+      slug: slug,
+    },
+    include: {
+      brand: true,
+      category: true,
+    },
+  });
+}
