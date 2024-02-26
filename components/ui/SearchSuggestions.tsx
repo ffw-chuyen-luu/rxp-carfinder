@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { debounce } from "lodash";
 
@@ -36,9 +36,16 @@ const DebouncedInput = ({ onInputChange }: { onInputChange: Function }) => {
   );
 };
 
-const SuggestionItem = ({ suggestion }: { suggestion: Car }) => {
+const SuggestionItem = ({
+  suggestion,
+  onSelected,
+}: {
+  suggestion: Car;
+  onSelected: () => void;
+}) => {
   return (
     <Link
+      onClick={onSelected}
       href={`/cars/${suggestion.slug}`}
       className="bg-white p-2 flex items-center justify-start"
     >
@@ -57,15 +64,32 @@ const SuggestionItem = ({ suggestion }: { suggestion: Car }) => {
 
 const SearchSuggestions = () => {
   const [suggestions, setSuggestions] = useState<Car[]>([]);
+  const [display, setDisplay] = useState(false);
+  const ref = useRef<HTMLDivElement>(null) ;
 
   const getSuggestions = async (txt: string) => {
     if (txt && txt.trim().length > 2) {
       const cars = await searchCars(txt);
       setSuggestions(cars);
+      setDisplay(true);
     } else {
       setSuggestions([]);
     }
   };
+
+  useEffect(() => {
+    const handleOutSideClick = (event: any) => {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        setDisplay(false);
+      }
+    };
+
+    window.addEventListener("mousedown", handleOutSideClick);
+
+    return () => {
+      window.removeEventListener("mousedown", handleOutSideClick);
+    };
+  }, [ref]);
 
   return (
     <div className="relative">
@@ -82,11 +106,18 @@ const SearchSuggestions = () => {
         />
         <DebouncedInput onInputChange={getSuggestions} />
       </div>
-      {suggestions.length > 0 && (
-        <div className="w-full px-10 text-left absolute z-10 top-11 left-0">
+      {display && suggestions.length > 0 && (
+        <div
+          ref={ref}
+          className="w-full px-10 text-left absolute z-10 top-11 left-0"
+        >
           <div className="bg-gray-200 border-gray-300 p-2 flex flex-col gap-2">
             {suggestions.map((suggestion) => (
-              <SuggestionItem key={suggestion.id} suggestion={suggestion} />
+              <SuggestionItem
+                key={suggestion.id}
+                suggestion={suggestion}
+                onSelected={() => setDisplay(false)}
+              />
             ))}
           </div>
         </div>
