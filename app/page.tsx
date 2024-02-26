@@ -1,3 +1,5 @@
-export default function Home() {
-  return <h1>RXP - CarFInder</h1>;
+import HeroBanner from "@/components/home/HeroBanner";
+
+export default function HomePage() {
+  return <HeroBanner />;
 }
