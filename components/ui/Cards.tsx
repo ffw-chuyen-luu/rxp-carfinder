@@ -62,8 +62,15 @@ export const Card = ({ car }: CardProps) => {
       </div>
       <div className="flex items-center justify-between">
         <div>
-          <span className="font-medium text-lg">${car.pricePerDay} / </span>
+          <span className="font-medium text-lg">
+            ${car.pricePerDay.toFixed(2)} /{" "}
+          </span>
           <span className="text-sm text-gray-400">day</span>
+          {car.discountedPrice > 0 && (
+            <p className="text-sm text-gray-400 text line-through">
+              ${car.discountedPrice.toFixed(2)}
+            </p>
+          )}
         </div>
         <LinkButton to={`/cars/${car.slug}`}>Rent now</LinkButton>
       </div>
