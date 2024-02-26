@@ -3,6 +3,7 @@ import { Lato } from "next/font/google";
 import "./globals.css";
 
 import Header from "@/components/sitewide/Header";
+import Footer from "@/components/sitewide/Footer";
 
 const lato = Lato({
   weight: ["100", "300", "400", "700", "900"],
@@ -24,6 +25,7 @@ export default function RootLayout({
       <body className={lato.className}>
         <Header />
         <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );
