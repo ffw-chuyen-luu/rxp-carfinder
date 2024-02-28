@@ -7,7 +7,7 @@ interface BackgroundImageProps {
 
 const BackgroundImage = ({ imageSrc, children }: BackgroundImageProps) => {
   return (
-    <section className="relative w-screen h-fit">
+    <section className="relative w-full h-fit">
       <Image
         src={imageSrc}
         alt="banner background"
