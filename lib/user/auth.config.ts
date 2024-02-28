@@ -16,6 +16,10 @@ export const authConfig = {
         return Response.redirect(new URL("/", nextUrl));
       }
 
+      if (!isLoggedIn && nextUrl.pathname === "/profile") {
+        return Response.redirect(new URL("/login", nextUrl));
+      }
+
       return true;
     },
   },
