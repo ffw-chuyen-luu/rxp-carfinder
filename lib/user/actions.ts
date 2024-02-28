@@ -4,6 +4,30 @@ import prisma from "@/lib/prisma";
 
 import { SignupUserInput, signupUserSchema } from "@/lib/schema";
 import { hash } from "bcryptjs";
+import { AuthError } from "next-auth";
+
+import { signIn } from "./auth";
+
+export const login = async (formData: { email: string; password: string }) => {
+  try {
+    await signIn("credentials", {
+      email: formData.email,
+      password: formData.password,
+      redirectTo: "/",
+    });
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case "CredentialsSignin":
+          return "Invalid email or password.";
+        default:
+          return "Something went wrong.";
+      }
+    } else {
+      throw error;
+    }
+  }
+};
 
 
 export const signup = async (formData: SignupUserInput) => {

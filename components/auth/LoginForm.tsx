@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { LoginUserInput, loginUserSchema } from "@/lib/schema";
 
-import { login } from "@/lib/user/data";
+import { login } from "@/lib/user/actions";
 
 export default function LoginForm() {
   const [submitting, setSubmitting] = useState(false);
@@ -37,7 +37,9 @@ export default function LoginForm() {
       onSubmit={handleSubmit(onSubmitHandler)}
       className="bg-white p-4 max-w-md rounded border-gray-400 shadow mx-auto mb-8"
     >
-      {error && <p className="text-xs text-red-500">{error}</p>}
+      {error && (
+        <p className="bg-red-500 text-white p-1 text-center mb-2">{error}</p>
+      )}
       <div className="block mb-4">
         <label htmlFor="email">Email</label>
         <input
@@ -47,6 +49,11 @@ export default function LoginForm() {
           required={true}
           className="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
         />
+        {errors.email && (
+          <p className="mt-1 text-xs text-red-500">
+            {errors.email.message?.toString()}
+          </p>
+        )}
       </div>
       <div className="block mb-4">
         <label htmlFor="password">Password</label>
@@ -57,6 +64,11 @@ export default function LoginForm() {
           required={true}
           className="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
         />
+        {errors.password && (
+          <p className="mt-1 text-xs text-red-500">
+            {errors.password.message?.toString()}
+          </p>
+        )}
       </div>
 
       <button
