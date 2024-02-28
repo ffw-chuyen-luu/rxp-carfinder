@@ -33,3 +33,10 @@ export type Car = {
 };
 
 export const NUMBER_OF_CARS_TO_FETCH = 8;
+
+export type User = {
+  id: string;
+  name: string | null;
+  email: string | null;
+  password: string | null;
+};
