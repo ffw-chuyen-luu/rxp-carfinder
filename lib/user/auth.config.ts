@@ -5,5 +5,18 @@ export const authConfig = {
     signIn: "/login",
   },
   providers: [],
-  callbacks: { },
+  callbacks: {
+    authorized({ auth, request: { nextUrl } }) {
+      const isLoggedIn = !!auth?.user;
+
+      const paths = ["/login", "/signup"];
+      const isOnUserPage = paths.includes(nextUrl.pathname);
+
+      if (isOnUserPage && isLoggedIn) {
+        return Response.redirect(new URL("/", nextUrl));
+      }
+
+      return true;
+    },
+  },
 } satisfies NextAuthConfig;
