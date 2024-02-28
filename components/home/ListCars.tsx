@@ -37,6 +37,7 @@ const ListCars = ({ title, initialCars, pagination }: ListCarsProps) => {
       {loadMore && (
         <div className="text-center">
           <button
+            type="button"
             onClick={loadMoreCars}
             className="bg-primary text-white hover:bg-opacity-70 py-2 px-4 rounded"
             disabled={loading}

@@ -44,11 +44,15 @@ export default function SignupForm() {
       className="bg-white p-4 max-w-md rounded border-gray-400 shadow mx-auto mb-8"
     >
       {state && state.success && (
-        <p className="bg-green-300 p-1 text-center mb-2">Created your account, you can login now.</p>
+        <p className="bg-green-300 p-1 text-center mb-2">
+          Created your account, you can login now.
+        </p>
       )}
 
       {state && !state.success && state.message && (
-        <p className="bg-red-500 text-white p-1 text-center mb-2">{state.message}</p>
+        <p className="bg-red-500 text-white p-1 text-center mb-2">
+          {state.message}
+        </p>
       )}
       <div className="block mb-4">
         <label htmlFor="name">Full name</label>
@@ -113,6 +117,7 @@ export default function SignupForm() {
       </div>
 
       <button
+        type="submit"
         disabled={submitting}
         className="w-full bg-primary text-white hover:bg-opacity-70 py-2 px-4 rounded"
       >

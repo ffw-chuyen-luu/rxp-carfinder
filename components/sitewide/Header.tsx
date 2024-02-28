@@ -40,7 +40,7 @@ const Header = async () => {
                       await signOut();
                     }}
                   >
-                    <button>Sign Out</button>
+                    <button type="submit">Sign Out</button>
                   </form>
                 </li>
               </>

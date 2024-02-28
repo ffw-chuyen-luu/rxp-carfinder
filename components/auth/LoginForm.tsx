@@ -72,6 +72,7 @@ export default function LoginForm() {
       </div>
 
       <button
+        type="submit"
         disabled={submitting}
         className="w-full bg-primary text-white hover:bg-opacity-70 py-2 px-4 rounded"
       >
