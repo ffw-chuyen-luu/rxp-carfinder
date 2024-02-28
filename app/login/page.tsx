@@ -1,6 +1,11 @@
 import LoginForm from "@/components/auth/LoginForm";
 import Container from "@/components/ui/Container";
+import { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Login",
+};
 
 export default function LoginPage() {
   return (

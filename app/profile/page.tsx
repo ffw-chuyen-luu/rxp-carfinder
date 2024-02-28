@@ -1,4 +1,9 @@
 import { auth } from "@/lib/user/auth";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Your profile",
+};
 
 const ProfilePage = async () => {
   const session = await auth();

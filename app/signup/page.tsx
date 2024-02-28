@@ -1,6 +1,11 @@
 import SignupForm from "@/components/auth/SignupForm";
 import Container from "@/components/ui/Container";
+import { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Signup",
+};
 
 export default function SignupPage() {
   return (
