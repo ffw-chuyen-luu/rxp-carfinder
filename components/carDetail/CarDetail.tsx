@@ -54,14 +54,16 @@ const CarDetail = ({ car }: CarDetailProps) => {
               More info about {car.title}
             </h2>
             <a href={car.officialWebsite} target="_blank" rel="noreferrer">
-              <Image
-                src={`/${car.brand.logo}`}
-                alt={car.brand.title}
-                height={0}
-                width={0}
-                sizes="100vw"
-                className="w-full h-auto max-w-24"
-              />
+              <div className="relative h-24">
+                <Image
+                  src={`/${car.brand.logo}`}
+                  alt={car.brand.title}
+                  fill
+                  style={{ objectFit: "cover" }}
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="w-full h-auto max-w-24"
+                />
+              </div>
             </a>
           </div>
         </div>
