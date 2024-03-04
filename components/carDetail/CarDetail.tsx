@@ -51,7 +51,7 @@ const CarDetail = ({ car }: CarDetailProps) => {
 
           <div>
             <h2 className="text-lg font-semibold leading-none tracking-tight mb-4">
-              {`More info about ${car.title}`}
+              More info about {car.title}
             </h2>
             <a href={car.officialWebsite} target="_blank">
               <Image
