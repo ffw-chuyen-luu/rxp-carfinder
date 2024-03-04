@@ -72,7 +72,7 @@ const Card = ({ car }: CardProps) => {
             </p>
           )}
         </div>
-        <LinkButton to={`/cars/${car.slug}`}>Rent now</LinkButton>
+        <LinkButton href={`/cars/${car.slug}`}>Rent now</LinkButton>
       </div>
     </div>
   );

@@ -26,7 +26,7 @@ const HeroBanner = () => {
               className="block w-auto mx-auto mb-8 xl:hidden"
             />
 
-            <LinkButton to="/">Rent now</LinkButton>
+            <LinkButton href="/">Rent now</LinkButton>
           </div>
 
           <Image
