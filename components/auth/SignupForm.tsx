@@ -7,10 +7,9 @@ import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 export default function SignupForm() {
-  const [submitting, setSubmitting] = useState(false);
   const [state, setState] = useState<{
     success: boolean;
-    message?: string | undefined;
+    message?: string;
   }>({ success: false });
 
   const methods = useForm<SignupUserInput>({
@@ -21,11 +20,10 @@ export default function SignupForm() {
     reset,
     handleSubmit,
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = methods;
 
   const onSubmitHandler: SubmitHandler<SignupUserInput> = async (data) => {
-    setSubmitting(true);
     const res = await signup(data);
     setState(res);
 
@@ -34,8 +32,6 @@ export default function SignupForm() {
     } else {
       reset({ confirmPassword: "" });
     }
-
-    setSubmitting(false);
   };
 
   return (
@@ -118,10 +114,10 @@ export default function SignupForm() {
 
       <button
         type="submit"
-        disabled={submitting}
+        disabled={isSubmitting}
         className="w-full bg-primary text-white hover:bg-opacity-70 py-2 px-4 rounded"
       >
-        {submitting ? "Submitting..." : "Sign up"}
+        {isSubmitting ? "Submitting..." : "Sign up"}
       </button>
     </form>
   );

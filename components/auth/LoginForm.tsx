@@ -8,7 +8,6 @@ import { LoginUserInput, loginUserSchema } from "@/lib/schema";
 import { login } from "@/lib/user/actions";
 
 export default function LoginForm() {
-  const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
 
   const methods = useForm<LoginUserInput>({
@@ -19,17 +18,15 @@ export default function LoginForm() {
     reset,
     handleSubmit,
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = methods;
 
   const onSubmitHandler: SubmitHandler<LoginUserInput> = async (data) => {
-    setSubmitting(true);
     const res = await login(data);
     if (res) {
       reset({ password: "" });
       setError(res);
     }
-    setSubmitting(false);
   };
 
   return (
@@ -73,10 +70,10 @@ export default function LoginForm() {
 
       <button
         type="submit"
-        disabled={submitting}
+        disabled={isSubmitting}
         className="w-full bg-primary text-white hover:bg-opacity-70 py-2 px-4 rounded"
       >
-        {submitting ? "Submitting..." : "Log in"}
+        {isSubmitting ? "Submitting..." : "Log in"}
       </button>
     </form>
   );
