@@ -1,81 +1,38 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
-import Link from "next/link";
-import { debounce } from "lodash";
+import { useDeferredValue, useEffect, useRef, useState } from "react";
+
+import SuggestionItem from "@/components/ui/SuggestionItem";
 
 import { Car } from "@/lib/types";
 import { searchCars } from "@/lib/car/data";
 
-const DebouncedInput = ({ onInputChange }: { onInputChange: Function }) => {
-  const debouncedOnChange = debounce(
-    useCallback(
-      (inputValue) => {
-        onInputChange(inputValue);
-      },
-      [onInputChange]
-    ),
-    500
-  );
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = event.target.value;
-    debouncedOnChange(newValue);
-  };
-
-  return (
-    <input
-      id="search"
-      type="text"
-      onChange={handleChange}
-      onFocus={handleChange}
-      placeholder="Search for your car..."
-      className="block w-full rounded-full border-gray-300 pl-12 focus:border-gray-40 focus:ring-0 md:w-screen"
-    />
-  );
-};
-
-const SuggestionItem = ({
-  suggestion,
-  onSelected,
-}: {
-  suggestion: Car;
-  onSelected: () => void;
-}) => {
-  return (
-    <Link
-      onClick={onSelected}
-      href={`/cars/${suggestion.slug}`}
-      className="bg-white p-2 flex items-center justify-start"
-    >
-      <Image
-        src={`/images/${suggestion.image}`}
-        alt="car"
-        height={0}
-        width={0}
-        sizes="100vw"
-        className="w-full h-auto max-w-10 mr-1"
-      />
-      <span>{suggestion.title}</span>
-    </Link>
-  );
-};
-
 const SearchSuggestions = () => {
+  const [search, setSearch] = useState("");
+  const deferredSearch = useDeferredValue(search);
+
   const [suggestions, setSuggestions] = useState<Car[]>([]);
   const [display, setDisplay] = useState(false);
   const ref = useRef<HTMLDivElement>(null) ;
 
-  const getSuggestions = async (txt: string) => {
-    if (txt && txt.trim().length > 2) {
-      const cars = await searchCars(txt);
-      setSuggestions(cars);
-      setDisplay(true);
-    } else {
-      setSuggestions([]);
-    }
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.value;
+    setSearch(newValue);
   };
+
+  useEffect(() => {
+    const timer = setTimeout(async () => {
+      if (deferredSearch && deferredSearch.trim().length > 2) {
+        const cars = await searchCars(deferredSearch.trim());
+        setSuggestions(cars);
+        setDisplay(true);
+      } else {
+        setSuggestions([]);
+      }
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [deferredSearch]);
 
   useEffect(() => {
     const handleOutSideClick = (event: any) => {
@@ -104,7 +61,14 @@ const SearchSuggestions = () => {
           height="24"
           className="absolute left-4"
         />
-        <DebouncedInput onInputChange={getSuggestions} />
+        <input
+          id="search"
+          type="text"
+          onChange={handleChange}
+          onFocus={() => setDisplay(true)}
+          placeholder="Search for your car..."
+          className="block w-full rounded-full border-gray-300 pl-12 focus:border-gray-40 focus:ring-0 md:w-screen"
+        />
       </div>
       {display && suggestions.length > 0 && (
         <div
@@ -116,7 +80,7 @@ const SearchSuggestions = () => {
               <SuggestionItem
                 key={suggestion.id}
                 suggestion={suggestion}
-                onSelected={() => setDisplay(false)}
+                onClick={() => setDisplay(false)}
               />
             ))}
           </div>
