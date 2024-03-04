@@ -53,7 +53,7 @@ const CarDetail = ({ car }: CarDetailProps) => {
             <h2 className="text-lg font-semibold leading-none tracking-tight mb-4">
               More info about {car.title}
             </h2>
-            <a href={car.officialWebsite} target="_blank">
+            <a href={car.officialWebsite} target="_blank" rel="noreferrer">
               <Image
                 src={`/${car.brand.logo}`}
                 alt={car.brand.title}
