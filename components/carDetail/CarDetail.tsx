@@ -1,7 +1,11 @@
 import { Car } from "@/lib/types";
 import Image from "next/image";
 
-const CarDetail = ({car}: {car: Car}) => {
+interface CarDetailProps {
+  car: Car;
+}
+
+const CarDetail = ({ car }: CarDetailProps) => {
   return (
     <section className="container m-auto my-10 px-4">
       <div className="bg-white">
@@ -64,6 +68,6 @@ const CarDetail = ({car}: {car: Car}) => {
       </div>
     </section>
   );
-}
+};
 
 export default CarDetail;

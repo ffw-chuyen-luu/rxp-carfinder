@@ -2,7 +2,11 @@ import Image from "next/image";
 
 import { Car } from "@/lib/types";
 
-const CarBanner = ({ car }: { car: Car }) => {
+interface CarBannerProps {
+  car: Car;
+}
+
+const CarBanner = ({ car }: CarBannerProps) => {
   return (
     <section className="bg-stonedark bg-opacity-90">
       <div className="container mx-auto px-4 pt-10 pb-4 text-white">
