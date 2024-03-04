@@ -1,7 +1,24 @@
-export default function Home() {
+import { Suspense } from "react";
+
+import HeroBanner from "@/components/home/HeroBanner";
+import PopularCars from "@/components/home/PopularCars";
+import AllCars from "@/components/home/AllCars";
+import Container from "@/components/ui/Container";
+
+export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1>RXP - CarFInder</h1>
-    </main>
+    <>
+      <HeroBanner />
+
+      <Container>
+        <Suspense fallback={<p>Loading...</p>}>
+          <PopularCars />
+        </Suspense>
+
+        <Suspense fallback={<p>Loading...</p>}>
+          <AllCars />
+        </Suspense>
+      </Container>
+    </>
   );
 }

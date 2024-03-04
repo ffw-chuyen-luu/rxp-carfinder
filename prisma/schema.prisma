@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL")
+}
+
+model Brand {
+  id    String @id @default(cuid())
+  title String @unique
+  logo  String
+  cars  Car[]
+}
+
+model Category {
+  id   String @id @default(cuid())
+  name String @unique
+  cars Car[]
+}
+
+model Car {
+  id              String       @id @default(cuid())
+  createdAt       DateTime     @default(now())
+  slug            String       @unique
+  title           String
+  image           String
+  description     String
+  oil             Oil          @default(GASOLINE)
+  transmission    Transmission @default(MANUAL)
+  capacity        Int
+  fuelTank        Int
+  pricePerDay     Float
+  discountedPrice Float        @default(0)
+  isFeatured      Boolean      @default(false)
+  officialWebsite String
+  brand           Brand        @relation(fields: [brandId], references: [id])
+  brandId         String
+  category        Category     @relation(fields: [categoryId], references: [id])
+  categoryId      String
+}
+
+enum Oil {
+  GASOLINE
+  ELECTRIC
+}
+
+enum Transmission {
+  MANUAL
+  AUTOMATIC
+}
+
+model User {
+  id       String @id @default(cuid())
+  name     String
+  email    String @unique
+  password String
+}
