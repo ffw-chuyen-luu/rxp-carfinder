@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import CardWrapper from "@/components/ui/Cards";
+import CardWrapper from "@/components/ui/CardWrapper";
 
 import { getAllCars } from "@/lib/car/data";
 import { Car, NUMBER_OF_CARS_TO_FETCH } from "@/lib/types";

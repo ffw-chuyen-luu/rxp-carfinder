@@ -9,7 +9,7 @@ interface CardProps {
   car: Car;
 }
 
-export const Card = ({ car }: CardProps) => {
+const Card = ({ car }: CardProps) => {
   return (
     <div className="p-4 bg-white rounded-md shadow transition ease-in-out delay-100 hover:shadow-md hover:-translate-y-0.5 hover:scale-105 xl:max-w-sm">
       <div className="mb-8">
@@ -78,28 +78,4 @@ export const Card = ({ car }: CardProps) => {
   );
 };
 
-interface CardWrapperProps {
-  title?: string;
-  items: Car[];
-}
-
-const CardWrapper = ({ title, items }: CardWrapperProps) => {
-  return (
-    <div className="mb-8">
-      {title && (
-        <h2 className="text-gray-400 leading-none tracking-tight mb-4">
-          {title}
-        </h2>
-      )}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-        {items && items.length > 0 ? (
-          items.map((car) => <Card key={car.id} car={car} />)
-        ) : (
-          <p>No data available.</p>
-        )}
-      </div>
-    </div>
-  );
-};
-
-export default CardWrapper;
+export default Card;

@@ -1,4 +1,4 @@
-import CardWrapper from "@/components/ui/Cards";
+import CardWrapper from "@/components/ui/CardWrapper";
 
 import { getPopularCars } from "@/lib/car/data";
 
