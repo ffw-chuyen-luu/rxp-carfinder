@@ -6,7 +6,8 @@
     "dev": "npx prisma generate && npx prisma migrate deploy && next dev",
     "build": "npx prisma generate && npx prisma migrate deploy && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test:unit": "vitest -c ./vitest.config.unit.mts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
@@ -28,11 +29,15 @@
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
+    "jsdom": "^24.0.0",
     "postcss": "^8",
     "prisma": "^5.10.2",
     "tailwindcss": "^3.3.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "vite-tsconfig-paths": "^4.3.1",
+    "vitest": "^1.3.1",
+    "vitest-mock-extended": "^1.3.1"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
