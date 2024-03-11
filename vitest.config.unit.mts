@@ -5,5 +5,10 @@ export default defineConfig({
   plugins: [tsconfigPaths()],
   test: {
     environment: "jsdom",
+    server: {
+      deps: {
+        inline: ["next-auth"],
+      },
+    },
   },
 });
