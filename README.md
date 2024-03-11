@@ -28,6 +28,9 @@ https://rxp-carfinder.vercel.app/
   * `npm run dev`
   * Point your browser to: `http://localhost:3000`
 
+### Unit Test
+  * `npm run test:unit`
+
 ### Other commands
   * `npx prisma generate` - Generate Prisma Client
   * `npx prisma migrate dev` - apply changes to a Prisma schema
