@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import prismaMock from "@/lib/__mocks__/prisma";
-import { generateListCars } from "@/lib/__mocks__/data";
+import { generateListCars, sampleCar } from "@/lib/__mocks__/data";
 
 import * as CarService from "@/lib/car/data";
 
@@ -59,6 +59,14 @@ describe("@/lib/car/data.ts", () => {
       prismaMock.car.findMany.mockResolvedValue([]);
       await CarService.searchCars("test");
       expect(prismaMock.car.findMany).toHaveBeenCalledOnce();
+    });
+  });
+
+  describe("getCarBySlug", () => {
+    it("should return a car", async () => {
+      prismaMock.car.findUnique.mockResolvedValueOnce(sampleCar);
+      const car = await CarService.getCarBySlug(sampleCar.slug);
+      expect(car).toStrictEqual(sampleCar);
     });
   });
 });
