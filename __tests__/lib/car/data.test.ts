@@ -27,4 +27,30 @@ describe("@/lib/car/data.ts", () => {
       expect(cars.length).toBe(mockCars.length);
     });
   });
+
+  describe("getAllCars", () => {
+    it("should return an empty cars", async () => {
+      prismaMock.car.findMany.mockResolvedValueOnce([]);
+      prismaMock.car.count.mockResolvedValueOnce(0);
+
+      const data = await CarService.getAllCars();
+      expect(data.total).toBe(0);
+      expect(data.items).toStrictEqual([]);
+    });
+
+    it("should terurn total and items", async () => {
+      const mockAllCars = generateListCars(12, undefined);
+      const items = mockAllCars.slice(0, 4);
+      const total = mockAllCars.length;
+
+      prismaMock.car.findMany.mockResolvedValueOnce(items);
+      prismaMock.car.count.mockResolvedValueOnce(total);
+      const data = await CarService.getAllCars();
+
+      expect(data).toStrictEqual({
+        total,
+        items,
+      });
+    });
+  });
 });
