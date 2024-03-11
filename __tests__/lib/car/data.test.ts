@@ -53,4 +53,12 @@ describe("@/lib/car/data.ts", () => {
       });
     });
   });
+
+  describe("searchCars", () => {
+    it("should return search results", async () => {
+      prismaMock.car.findMany.mockResolvedValue([]);
+      await CarService.searchCars("test");
+      expect(prismaMock.car.findMany).toHaveBeenCalledOnce();
+    });
+  });
 });
