@@ -30,7 +30,7 @@ const CarBanner = ({ car }: CarBannerProps) => {
 
         <Image
           src={`/images/${car.image}`}
-          alt="car"
+          alt={car.title}
           height={0}
           width={0}
           sizes="100vw"
