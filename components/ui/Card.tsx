@@ -21,7 +21,7 @@ const Card = ({ car }: CardProps) => {
       <div className="mb-8 text-gray-400 flex items-center justify-between md:block">
         <Image
           src={`/images/${car.image}`}
-          alt="car"
+          alt={car.title}
           height={0}
           width={0}
           sizes="100vw"
