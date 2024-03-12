@@ -16,7 +16,7 @@ const SuggestionItem = ({ suggestion, onClick }: SuggestionItemProps) => {
     >
       <Image
         src={`/images/${suggestion.image}`}
-        alt="car"
+        alt={suggestion.title}
         height={0}
         width={0}
         sizes="100vw"
