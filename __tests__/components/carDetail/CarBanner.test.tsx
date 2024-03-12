@@ -1,9 +1,13 @@
 import CarBanner from "@/components/carDetail/CarBanner";
 import { sampleCar } from "@/lib/__mocks__/data";
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
 
 describe("@/components/carDetail/CarBanner", () => {
+  afterEach(() => {
+    document.body.innerHTML = "";
+  });
+
   it("should see title, image and price", () => {
     render(<CarBanner car={sampleCar} />);
 
@@ -14,11 +18,13 @@ describe("@/components/carDetail/CarBanner", () => {
 
     const image = screen.getByRole("img", { name: sampleCar.title });
 
-    const price = screen.queryByText(`${sampleCar.pricePerDay.toFixed(2)}`)
+    const price = screen.queryByText(
+      new RegExp(sampleCar.pricePerDay.toFixed(2), "i")
+    )!;
 
     expect(title).toBeDefined();
     expect(image).toBeDefined();
-    expect(price).toBeDefined();
+    expect(price.textContent).toBe(`\$${sampleCar.pricePerDay.toFixed(2)} / `);
   });
 
   it("should see discountedPrice if it greater than 0", () => {
@@ -26,12 +32,27 @@ describe("@/components/carDetail/CarBanner", () => {
       ...sampleCar,
       discountedPrice: sampleCar.pricePerDay - 20,
     };
-    render(<CarBanner car={sampleCar} />);
+    render(<CarBanner car={car} />);
 
     const discountedPrice = screen.queryByText(
-      `${sampleCar.discountedPrice.toFixed(2)}`
+      new RegExp(car.discountedPrice.toFixed(2), "i")
+    )!;
+    expect(discountedPrice.textContent).toBe(
+      `\$${car.discountedPrice.toFixed(2)}`
     );
+  });
 
-    expect(discountedPrice).toBeDefined();
+  it("should see same price and discountedPrice", () => {
+    const car = {
+      ...sampleCar,
+      discountedPrice: sampleCar.pricePerDay,
+    };
+    render(<CarBanner car={car} />);
+
+    const prices = screen.queryAllByText(
+      new RegExp(car.discountedPrice.toFixed(2), "i")
+    )!;
+
+    expect(prices.length).toBe(2);
   });
 });
