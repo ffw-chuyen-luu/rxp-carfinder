@@ -36,7 +36,7 @@ describe("@/lib/components/ui/SearchSuggestions", () => {
     userEvent.type(searchInput, "test query");
 
     await waitFor(() => {
-      expect(screen.getByText(sampleCar.title)).toBeDefined();
+      expect(screen.getByText(sampleCar.title).textContent).toBe(sampleCar.title);
     });
   });
 });
