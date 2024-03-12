@@ -11,5 +11,8 @@ export default defineConfig({
         inline: ["next-auth"],
       },
     },
+    coverage: {
+      provider: "v8",
+    },
   },
 });
