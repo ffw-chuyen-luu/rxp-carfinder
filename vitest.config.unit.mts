@@ -13,6 +13,16 @@ export default defineConfig({
     },
     coverage: {
       provider: "v8",
+      exclude: [
+        "**/.next/**",
+        "*.d.ts",
+        "postcss.config.js",
+        "next.config.mjs",
+        "tailwind.config.ts",
+        "lib/user/auth.config.ts",
+        "lib/prisma.ts",
+        "prisma/*",
+      ],
     },
   },
 });
