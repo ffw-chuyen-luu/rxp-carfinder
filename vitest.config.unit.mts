@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [tsconfigPaths(), react()],
   test: {
     environment: "jsdom",
+    setupFiles: ["./vitest-setup.ts"],
     server: {
       deps: {
         inline: ["next-auth"],
@@ -16,6 +17,7 @@ export default defineConfig({
       exclude: [
         "**/.next/**",
         "*.d.ts",
+        "vitest-setup.ts",
         "postcss.config.js",
         "next.config.mjs",
         "tailwind.config.ts",
