@@ -16,12 +16,12 @@ const CarBanner = ({ car }: CarBannerProps) => {
           </h1>
 
           <div className="md:absolute md:-top-6 md:right-0">
-            <span className="font-medium text-xl">
+            <span className="font-medium text-xl" id="original-price">
               ${car.pricePerDay.toFixed(2)} /{" "}
             </span>
             <span className="text-sm">day</span>
             {car.discountedPrice > 0 && (
-              <p className="text-sm line-through">
+              <p className="text-sm line-through" id="discounted-price">
                 ${car.discountedPrice.toFixed(2)}
               </p>
             )}
@@ -30,7 +30,7 @@ const CarBanner = ({ car }: CarBannerProps) => {
 
         <Image
           src={`/images/${car.image}`}
-          alt="car"
+          alt={car.title}
           height={0}
           width={0}
           sizes="100vw"
