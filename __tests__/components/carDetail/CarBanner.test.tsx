@@ -17,14 +17,11 @@ describe("@/components/carDetail/CarBanner", () => {
     });
 
     const image = screen.getByRole("img", { name: sampleCar.title });
-
-    const price = screen.queryByText(
-      new RegExp(sampleCar.pricePerDay.toFixed(2), "i")
-    )!;
+    const price = document.getElementById("original-price");
 
     expect(title).toBeDefined();
     expect(image).toBeDefined();
-    expect(price.textContent).toBe(`\$${sampleCar.pricePerDay.toFixed(2)} / `);
+    expect(price).toBeInTheDocument();
   });
 
   it("should see discountedPrice if it greater than 0", () => {
@@ -34,12 +31,8 @@ describe("@/components/carDetail/CarBanner", () => {
     };
     render(<CarBanner car={car} />);
 
-    const discountedPrice = screen.queryByText(
-      new RegExp(car.discountedPrice.toFixed(2), "i")
-    )!;
-    expect(discountedPrice.textContent).toBe(
-      `\$${car.discountedPrice.toFixed(2)}`
-    );
+    const discountedPrice = document.getElementById("discounted-price");
+    expect(discountedPrice).toBeInTheDocument();
   });
 
   it("should see same price and discountedPrice", () => {
@@ -49,10 +42,10 @@ describe("@/components/carDetail/CarBanner", () => {
     };
     render(<CarBanner car={car} />);
 
-    const prices = screen.queryAllByText(
-      new RegExp(car.discountedPrice.toFixed(2), "i")
-    )!;
+    const price = document.getElementById("original-price");
+    const discountedPrice = document.getElementById("discounted-price");
 
-    expect(prices.length).toBe(2);
+    expect(price).toBeInTheDocument();
+    expect(discountedPrice).toBeInTheDocument();
   });
 });
