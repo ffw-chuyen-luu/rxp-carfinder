@@ -1,12 +1,15 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { CredentialsSignin, AuthError } from "@auth/core/errors";
 
 import prismaMock from "@/lib/__mocks__/prisma";
 
-import { signup } from "@/lib/user/actions";
-import { SignupUserInput } from "@/lib/schema";
+import { login, signup } from "@/lib/user/actions";
+import { LoginUserInput, SignupUserInput } from "@/lib/schema";
 import { sampleUser } from "@/lib/__mocks__/data";
+import { signIn } from "@/lib/user/auth";
 
 vi.mock("@/lib/prisma.ts");
+vi.mock("@/lib/user/auth");
 
 describe("@/lib/user/actions.ts", () => {
   beforeEach(() => {
@@ -56,6 +59,42 @@ describe("@/lib/user/actions.ts", () => {
       prismaMock.user.findUnique.mockResolvedValueOnce(null);
       const response = await signup(formData);
       expect(response.success).toBe(true);
+    });
+
+    it("should see encounter error", async () => {
+      prismaMock.user.findUnique.mockRejectedValue(
+        new Error("Mocked user not found")
+      );
+      const response = await signup(formData);
+      expect(response.success).toBe(false);
+    });
+  });
+
+  const loginFormData: LoginUserInput = {
+    email: "test@local.dev",
+    password: "123",
+  };
+
+  describe("login", () => {
+    it("should see credentials signin error", async () => {
+      vi.mocked(signIn).mockRejectedValueOnce(new CredentialsSignin());
+      const response = await login(loginFormData);
+      expect(response).toEqual("Invalid email or password.");
+    });
+
+    it("should see AuthError", async () => {
+      vi.mocked(signIn).mockRejectedValueOnce(new AuthError());
+      const response = await login(loginFormData);
+      expect(response).toEqual("Something went wrong.");
+    });
+
+    it("should see error", async () => {
+      vi.mocked(signIn).mockRejectedValueOnce(new Error());
+      try {
+        await login(loginFormData);
+      } catch (ex) {
+        expect(ex).toBeInstanceOf(Error);
+      }
     });
   });
 });
